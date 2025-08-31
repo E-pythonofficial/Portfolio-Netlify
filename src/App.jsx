@@ -140,6 +140,8 @@ function Hero() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          
+          {/* Text Content */}
           <div className="order-2 lg:order-1">
             <p className="text-indigo-600 font-medium mb-3 sm:mb-4 text-sm sm:text-base">
               Registered Tech Agency
@@ -198,17 +200,22 @@ function Hero() {
             </ul>
           </div>
 
-          <div className="order-1 lg:order-2 flex items-center justify-center">
-            {/* Clean laptop icon without background */}
+          {/* Responsive Image (hidden on mobile) */}
+          <div className="order-1 lg:order-2 items-center justify-center hidden sm:flex">
             <div className="text-center py-8 lg:py-0">
-              <div className="text-6xl sm:text-7xl lg:text-8xl mb-3 filter drop-shadow-lg w-50 ">
-                <LazyLoadImage src={img} className='' />
+              <div className="mb-3 filter drop-shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+                <LazyLoadImage 
+                  src={img} 
+                  alt="Hero illustration"
+                  className="w-full h-auto object-contain"
+                />
               </div>
               <p className="text-xs sm:text-sm text-gray-400 max-w-xs mx-auto px-4">
                 {/* optional text */}
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </motion.section>
@@ -400,7 +407,163 @@ function Services() {
 
 
 // CONTACT Section
-  
+function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
+
+  // Replace these with env vars (examples below)
+  // const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "your_service_id";
+  // const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "your_template_id";
+  // const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "your_public_key";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    setSending(true);
+
+    // Map your form fields to the template vars you used in EmailJS template
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+    };
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+      .then(
+        (result) => {
+          setSending(false);
+          alert("Message sent successfully");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          setSending(false);
+          console.error("EmailJS Error:", error);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <motion.section
+      id="contact"
+      className="bg-indigo/95 py-12 sm:py-16 lg:py-24"
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Contact Info (keep as-is) */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3 } },
+            }}
+          >
+            <motion.h2
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-300 mb-4 sm:mb-6"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            >
+              Get In Touch With Us
+            </motion.h2>
+
+            <div className="space-y-4 sm:space-y-6">
+              {[
+                { icon: "📧", text: "hello@didanentertainment.com" },
+                { icon: "📱", text: "+234 8125449875" },
+                { icon: "📍", text: "Ibadan, Nigeria" },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 border border-gray-200 rounded-lg"
+                  variants={{ hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } }}
+                >
+                  <div className="text-xl sm:text-2xl flex-shrink-0">{item.icon}</div>
+                  <div className="min-w-0">
+                    <div className="text-gray-500 text-sm sm:text-base">{item.text}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.form
+            onSubmit={handleSubmit}
+            className="space-y-4 sm:space-y-6"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors text-base"
+                placeholder="Your full name"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors text-base"
+                placeholder="your.email@example.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows={4}
+                className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors resize-none text-base"
+                placeholder="Tell us about your project..."
+                required
+              />
+            </div>
+
+            <motion.button
+              type="submit"
+              className="w-full px-4 sm:px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium touch-manipulation disabled:opacity-60"
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              disabled={sending}
+            >
+              {sending ? "Sending..." : "Send Message"}
+            </motion.button>
+          </motion.form>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
 
 
 // FOOTER Section
