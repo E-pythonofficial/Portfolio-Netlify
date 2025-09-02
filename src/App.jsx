@@ -470,7 +470,7 @@ function Contact() {
             </div>
           </motion.div>
 
-          {/* Contact Form - Updated for Gmail */}
+          {/* Contact Form - For Client's Email */}
           <motion.form
             action="https://formsubmit.co/Oyedotunadewumi@gmail.com"
             method="POST"
@@ -480,12 +480,9 @@ function Contact() {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            {/* FormSubmit Configuration */}
+            {/* FormSubmit Configuration - Simplified for better reliability */}
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://yourwebsite.com/thanks" />
-            <input type="hidden" name="_subject" value="New Contact Form Submission from Website" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_autoresponse" value="Thank you for contacting us! We'll get back to you within 24 hours." />
+            <input type="hidden" name="_subject" value="New Contact Form Submission - Website" />
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
@@ -544,7 +541,6 @@ function Contact() {
     </motion.section>
   );
 }
-
 
 // FOOTER Section
 function Footer() {
