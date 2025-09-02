@@ -152,7 +152,10 @@ function Hero() {
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               We craft modern websites, sleek designs, powerful web apps, and intelligent
-              AI solutions like machine learning models and custom chatbots to help businesses grow smarter and faster.
+              AI solutions like machine learning models and custom chatbots to help businesses grow smarter 
+              and faster.
+              Our team brings a unique blend of technical expertise, design thinking, and real-world problem-solving to every project. We believe that technology should not only function seamlessly but also inspire and simplify life.
+
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
@@ -247,13 +250,20 @@ function About() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold border-b border-gray-200 text-gray-300 mb-4 sm:mb-6">
               About Didan Tech
             </h2>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
-              Company story here - when you were founded, your mission, what drives you, 
-              your experience in the industry, and what makes you different from other tech agencies.
+            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6 italic">
+              Founded: May 2025
+              <br></br>
+              Didan Tech was established in May 2025 with a vision to transform the way technology 
+              connects people, businesses, and opportunities. From the beginning, our mission has 
+              been to deliver innovative, reliable, and user-centered tech solutions that empower 
+              individuals and organizations to thrive in a digital world.
+
             </p>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-              Details about your team, your values, your approach to projects, 
-              and why clients should choose you for their tech needs.
+            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 italic">
+              What sets Didan Tech apart from other tech agencies is our personalized approach, ethical standards, and focus on results that truly matter. 
+              Every project is treated as a partnership, from understanding the client’s goals to executing a solution that exceeds expectations.
+              Our team is composed of skilled developers, designers, and digital strategists who are aligned with our core values of integrity, innovation, and impact. We approach each project with clarity, creativity, and a commitment to excellence, ensuring that clients not only get a product but also a strategic advantage in their industry.
+              Choosing Didan Tech means choosing a trusted partner who will guide your tech journey with vision, precision, and dedication, helping you achieve your goals and make a lasting digital impression.
             </p>
 
             {/* Stats */}
@@ -367,11 +377,15 @@ function Services() {
           <p className="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto px-4">
             We provide modern solutions tailored to your business needs with innovation and excellence.
           </p>
+          <p className="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto px-4">
+            Driven by a passion for creativity, efficiency and meaningful impact.
+
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <motion.div 
               key={index}
               className="cursor-pointer border border-gray-200 rounded-lg p-4 sm:p-6 hover:border-indigo-300 hover:shadow-lg transition-all duration-200 hover:transform hover:scale-105 touch-manipulation"
               initial={{ opacity: 0, y: 40 }}
@@ -408,51 +422,6 @@ function Services() {
 
 // CONTACT Section
 function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [sending, setSending] = useState(false);
-
-  // Replace these with env vars (examples below)
-  // const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "your_service_id";
-  // const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "your_template_id";
-  // const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "your_public_key";
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Please fill all fields.");
-      return;
-    }
-
-    setSending(true);
-
-    // Map your form fields to the template vars you used in EmailJS template
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      message: formData.message,
-    };
-
-    emailjs
-      .send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
-      .then(
-        (result) => {
-          setSending(false);
-          alert("Message sent successfully");
-          setFormData({ name: "", email: "", message: "" });
-        },
-        (error) => {
-          setSending(false);
-          console.error("EmailJS Error:", error);
-          alert("Failed to send message. Please try again later.");
-        }
-      );
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   return (
     <motion.section
       id="contact"
@@ -464,7 +433,7 @@ function Contact() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Contact Info (keep as-is) */}
+          {/* Contact Info */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -483,7 +452,7 @@ function Contact() {
 
             <div className="space-y-4 sm:space-y-6">
               {[
-                { icon: "📧", text: "hello@didanentertainment.com" },
+                { icon: "📧", text: "Oyedotunadewumi@gmail.com" },
                 { icon: "📱", text: "+234 8125449875" },
                 { icon: "📍", text: "Ibadan, Nigeria" },
               ].map((item, i) => (
@@ -501,22 +470,28 @@ function Contact() {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form - Updated for Gmail */}
           <motion.form
-            onSubmit={handleSubmit}
+            action="https://formsubmit.co/Oyedotunadewumi@gmail.com"
+            method="POST"
             className="space-y-4 sm:space-y-6"
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
+            {/* FormSubmit Configuration */}
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://yourwebsite.com/thanks" />
+            <input type="hidden" name="_subject" value="New Contact Form Submission from Website" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_autoresponse" value="Thank you for contacting us! We'll get back to you within 24 hours." />
+
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
               <input
                 type="text"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors text-base"
                 placeholder="Your full name"
                 required
@@ -528,8 +503,6 @@ function Contact() {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
                 className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors text-base"
                 placeholder="your.email@example.com"
                 required
@@ -537,11 +510,19 @@ function Contact() {
             </div>
 
             <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Phone (Optional)</label>
+              <input
+                type="tel"
+                name="phone"
+                className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors text-base"
+                placeholder="+234 xxx xxx xxxx"
+              />
+            </div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
               <textarea
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 rows={4}
                 className="w-full px-3 sm:px-4 py-3 bg-gray-700 border border-gray-300 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors resize-none text-base"
                 placeholder="Tell us about your project..."
@@ -551,12 +532,11 @@ function Contact() {
 
             <motion.button
               type="submit"
-              className="w-full px-4 sm:px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium touch-manipulation disabled:opacity-60"
+              className="w-full px-4 sm:px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium touch-manipulation"
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.03 }}
-              disabled={sending}
             >
-              {sending ? "Sending..." : "Send Message"}
+              Send Message
             </motion.button>
           </motion.form>
         </div>
