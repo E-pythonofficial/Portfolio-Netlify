@@ -472,7 +472,7 @@ function Contact() {
 
           {/* Contact Form - For Client's Email */}
           <motion.form
-            action="https://formsubmit.co/Oyedotunadewumi@gmail.com"
+            action="https://formsubmit.co/d3d246db8d4de9afaac1172ada12f221"
             method="POST"
             className="space-y-4 sm:space-y-6"
             initial={{ opacity: 0, x: 60 }}
