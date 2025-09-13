@@ -701,7 +701,7 @@ function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-gray-400 text-xs sm:text-sm">
-            © 2024 Didan Tech. All rights reserved.
+            © 2025 Didan Tech. All rights reserved.
           </p>
         </motion.div>
       </div>
